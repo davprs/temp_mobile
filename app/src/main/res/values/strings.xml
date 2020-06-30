@@ -1,0 +1,44 @@
+<resources>
+    <string name="server_address1">http://192.168.1.4/ilriccone</string>
+    <string name="server_address">http://10.0.2.2/ilriccone</string>
+    <string name="app_name">il riccone</string>
+    <string name="login">Login Page</string>
+    <string name="password_too_long">Password troppo lunga</string>
+    <string name="username_too_long">Username troppo lungo</string>
+    <string name="unsuccessful_login">Username o Password errata</string>
+
+    <string name="category_1">history</string>
+    <string name="category_2">geography</string>
+    <string name="category_3">computers</string>
+    <string name="category_4">vehicles</string>
+
+    <string name="difficulty_1">easy</string>
+    <string name="difficulty_2">medium</string>
+    <string name="difficulty_3">hard</string>
+    <string name="title_activity_side_drawer">SideDrawer</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_scores">Scores</string>
+
+    <string name="home_second">Home Second</string>
+    <string name="no_intern_available">Internet non disponibile</string>
+    <string name="settings">Settings</string>
+    <string name="user_already_in">nome utente già presente</string>
+    <string name="scores">Scores</string>
+    <string name="question_counter_pre">domanda: %1$d/10</string>
+    <string name="quitz_result_goto_home">Home</string>
+    <string name="quiz_result_category">Categoria : %1$s</string>
+    <string name="quiz_result_difficulty">Difficoltà : %1$s</string>
+    <string name="quiz_result_score">Punteggio : %1$s pts</string>
+    <string name="quiz_result_best_score">Miglior punteggio : %1$s pts</string>
+    <string name="place_empty">path not valid</string>
+
+
+</resources>

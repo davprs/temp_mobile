@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="white">#FFFFFF</color>
+
+    <color name="dif1_clear">#FFFFAA</color>
+    <color name="dif1">@android:color/holo_orange_light</color>
+    <color name="dif1_secondary">@android:color/holo_orange_dark</color>
+
+    <color name="dif2_clear">#AAFFFF</color>
+    <color name="dif2">@android:color/holo_blue_bright</color>
+    <color name="dif2_secondary">@android:color/holo_blue_dark</color>
+
+    <color name="dif3_clear">#CCFFAA</color>
+    <color name="dif3">@android:color/holo_green_light</color>
+    <color name="dif3_secondary">@android:color/holo_green_dark</color>
+
+
+    <color name="colorDefaultAppBar">#6200EE</color>
+    <color name="colorPrimaryLight_cat1">#F2E0FF</color>
+    <color name="colorPrimaryLight2_cat1">#F2F0FF</color>
+
+    <color name="colorPrimary_cat2">#22DDDD</color>
+    <color name="colorPrimaryLight_cat2">#99F0FF</color>
+    <color name="colorPrimaryLight2_cat2">#BBFFFF</color>
+
+    <color name="colorPrimary_cat3">#6200EE</color>
+    <color name="colorPrimaryLight_cat3">#F2E0FF</color>
+    <color name="colorPrimaryLight2_cat3">#F2F0FF</color>
+
+    <color name="colorPrimary_cat4">#6200EE</color>
+    <color name="colorPrimaryLight_cat4">#F2E0FF</color>
+    <color name="colorPrimaryLight2_cat4">#F2F0FF</color>
+
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+</resources>

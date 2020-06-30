@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/home_fragment"
+    tools:context=".SideDrawer">
+
+    <ImageView
+        android:scaleType = "centerCrop"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/sfondo_mare"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/logo_scritta"
+        app:layout_constraintBottom_toTopOf="@+id/relativeLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.707"
+        tools:layout_editor_absoluteX="0dp">
+
+        <View
+            android:id="@+id/strut"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_centerHorizontal="true" />
+
+        <Button
+            android:id="@+id/buttonCat1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_alignRight="@id/strut"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/mappa"
+            android:textColor="@color/white"
+            android:text="@string/category_1" />
+
+        <Button
+            android:id="@+id/buttonCat2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_alignLeft="@id/strut"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/math"
+            android:textColor="@color/white"
+            android:text="@string/category_2" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/relativeLayout"
+        app:layout_constraintVertical_bias="0.472"
+        tools:layout_editor_absoluteX="16dp">
+
+        <View
+            android:id="@id/strut"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_centerHorizontal="true" />
+
+        <Button
+            android:id="@+id/buttonCat3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_alignRight="@id/strut"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/cs1"
+            android:textColor="@color/white"
+            android:text="@string/category_3" />
+
+        <Button
+            android:id="@+id/buttonCat4"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_alignLeft="@id/strut"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/car1"
+            android:textColor="@color/white"
+            android:text="@string/category_4" />
+    </RelativeLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
