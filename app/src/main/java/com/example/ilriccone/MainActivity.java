@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
 
 
-            Intent loginIntent = new Intent(getBaseContext(), SignupActivity.class);
+            Intent loginIntent = new Intent(getBaseContext(), LoginActivity.class);
             Log.d("aaa", getBaseContext().toString());
             startActivity(loginIntent);
             finish();
@@ -72,7 +72,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Log.d("aaa", "pre!_TOTMAINACT");

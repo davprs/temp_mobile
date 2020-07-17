@@ -69,7 +69,9 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_fragment_container);
 
-        //Utility.insertFragment(this, R.id.login_fragment_container, new LoginFragment(),  FRAGMENT_TAG);
+        InternetUtilities.makeSnackbar(this, R.id.login_fragment_container);
+
+        Utility.insertFragment(this, R.id.login_fragment_container, new LoginFragment(),  FRAGMENT_TAG);
 
     }
 

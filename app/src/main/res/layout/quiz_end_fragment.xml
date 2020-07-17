@@ -7,7 +7,7 @@
     android:background="@drawable/res_back1">
 
     <TextView
-        android:background="@drawable/rounded_corner_color_1"
+        android:background="@drawable/rounded_corners_color_1"
         android:id="@+id/quiz_result_category"
         android:layout_width="300sp"
         android:layout_height="wrap_content"

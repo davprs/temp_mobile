@@ -1,6 +1,6 @@
 <resources>
-    <string name="server_address1">http://192.168.1.4/ilriccone</string>
-    <string name="server_address">http://10.0.2.2/ilriccone</string>
+    <string name="server_address">http://192.168.1.5/ilriccone</string>
+    <string name="server_address1">http://10.0.2.2/ilriccone</string>
     <string name="app_name">il riccone</string>
     <string name="login">Login Page</string>
     <string name="password_too_long">Password troppo lunga</string>
@@ -39,6 +39,8 @@
     <string name="quiz_result_score">Punteggio : %1$s pts</string>
     <string name="quiz_result_best_score">Miglior punteggio : %1$s pts</string>
     <string name="place_empty">path not valid</string>
+    <string name="chose_picture">Scegli un immagine di profilo</string>
+    <string name="pts">pts.</string>
 
 
 </resources>

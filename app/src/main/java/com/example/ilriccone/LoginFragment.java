@@ -60,6 +60,8 @@ public class LoginFragment extends Fragment {
         signup_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                /*Intent intent = new Intent(getActivity().getBaseContext(), SignupActivity.class);
+                startActivity(intent);*/
                 Utility.replaceFragment((AppCompatActivity) getActivity(), R.id.login_fragment_container, new SignupFragment(), "aaa");
             }
         });

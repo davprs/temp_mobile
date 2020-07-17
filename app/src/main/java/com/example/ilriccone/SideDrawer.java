@@ -117,8 +117,14 @@ public class SideDrawer extends AppCompatActivity {
             ((QuestionFragment)f).onBackPressed();
         } else if (f instanceof QuizEndFragment) {
             ((QuizEndFragment)f).onBackPressed();
-        } else {
+        } else if (f instanceof HomeFragment) {
+            Log.d("aaa","1");
+        } else if (f instanceof DifficultyFragment) {
             super.onBackPressed();
+        } else {
+            //super.onBackPressed();
+            this.finishAffinity();
+
         }
 
     }

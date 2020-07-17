@@ -3,12 +3,15 @@ package com.example.ilriccone;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -49,24 +52,24 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Objects;
 
 import static android.app.Activity.RESULT_OK;
 
 public class SignupFragment extends Fragment {
-    private static final int PICK_IMAGE = 1;
-    private static final int REQUEST_IMAGE_CAPTURE = 12345;
-    private Activity activity;
-    Fragment fragment = this;
-    Button load_image;
-    String filePath;
-    private String username = null;
-    private String password = null;
-    Button signup;
+
+    static final int PICK_IMAGE_REQUEST = 1;
     ImageView imageView;
+    Button load_image, signup;
     TextInputEditText username_f, password_f1, password_f2;
+    private Image images;
+    Bitmap imageBitmap;
+    Uri currentPhotoUri;
+    Activity activity;
 
     @Override
     public View onCreateView(
@@ -75,11 +78,23 @@ public class SignupFragment extends Fragment {
         return inflater.inflate(R.layout.signup_fragment, container, false);
     }
 
+    //scegli immagine galleria
+    public static Intent showFileChooser() {
+        final Intent pickImageIntent = new Intent(Intent.ACTION_PICK,
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        pickImageIntent.setType("image/*");
+        pickImageIntent.putExtra("aspectX", 1);
+        pickImageIntent.putExtra("aspectY", 1);
+        pickImageIntent.putExtra("scale", true);
+        pickImageIntent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+        return pickImageIntent;
+    }
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         activity = getActivity();
-        InternetUtilities.registerNetworkCallback(activity);
+        InternetUtilities.makeSnackbar(getActivity(), R.id.signup_fragment);
         load_image = getView().findViewById(R.id.captureButton);
         imageView = getView().findViewById(R.id.imageView);
         signup = getView().findViewById(R.id.signup_button1);
@@ -91,7 +106,7 @@ public class SignupFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (isSignupFormRight()) {
-                    makeRequest(getString(R.string.server_address) + "/insertUser?username=" +
+                    makeRequest(getString(R.string.server_address) + "/insertUser.php?username=" +
                             username_f.getText() + "&password=" + password_f1.getText());
 
                 } else {
@@ -103,105 +118,10 @@ public class SignupFragment extends Fragment {
 
         load_image.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Log.d("aaa", "pre!_1");
-                if (InternetUtilities.getIsNetworkConnected()) {
-                    Log.d("aaa", "pre!_2");
-                    if (ActivityCompat.checkSelfPermission(activity,
-                            Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                        Log.d("aaa", "pre!_3");
-
-                        requestPermissions(
-                                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                                123);
-                    } else {
-                        Log.d("aaa", "pre!_4");
-                        startGallery();
-                    }
-                }
+            public void onClick(View v) {
+                startActivityForResult(showFileChooser(), PICK_IMAGE_REQUEST);
             }
         });
-    }
-    /*
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        Log.d("aaa", "pre!_TOT2");
-
-        if (resultCode == RESULT_OK) {
-            if (requestCode == 123) {
-                Uri returnUri = data.getData();
-                Bitmap bitmapImage = null;
-                try {
-                    bitmapImage = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), returnUri);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                imageView.setImageBitmap(bitmapImage);
-            }
-        }
-    }*/
-
-    String currentPhotoPath;
-
-    private File createImageFile() throws IOException {
-        // Create an image file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = activity.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",         /* suffix */
-                storageDir      /* directory */
-        );
-
-        // Save a file: path for use with ACTION_VIEW intents
-        currentPhotoPath = image.getAbsolutePath();
-        return image;
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        Log.d("aaa", "ONACT");
-        if (resultCode == Activity.RESULT_OK) {
-            Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
-            imageView.setImageBitmap(imageBitmap);
-        }
-    }
-
-
-    private void dispatchTakePictureIntent() {
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        // Ensure that there's a camera activity to handle the intent
-        if (takePictureIntent.resolveActivity(activity.getPackageManager()) != null) {
-            // Create the File where the photo should go
-            File photoFile = null;
-            try {
-                photoFile = createImageFile();
-            } catch (IOException ex) {
-                // Error occurred while creating the File
-            }
-            // Continue only if the File was successfully created
-            if (photoFile != null) {
-                Uri photoURI = FileProvider.getUriForFile(getContext(),
-                        "com.example.android.fileprovider",
-                        photoFile);
-
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                fragment.startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-            }
-        }
-    }
-
-
-
-    private void startGallery() {
-        Log.d("aaa", "pre!_TOT");
-        dispatchTakePictureIntent();
-        Log.d("aaa", "pre!_TOT1/2");
     }
 
     private boolean isSignupFormRight() {
@@ -210,7 +130,7 @@ public class SignupFragment extends Fragment {
 
 
     private void makeRequest(String url) {
-        RequestQueue queue = Volley.newRequestQueue(getContext());
+        RequestQueue queue = Volley.newRequestQueue(activity);
 
         // Request a string response from the provided URL.
         JSONObject jo = null;
@@ -225,12 +145,12 @@ public class SignupFragment extends Fragment {
                             e.printStackTrace();
                         }
                         if (res.equals("already in")){
-                            Snackbar.make(getView(), R.string.user_already_in, Snackbar.LENGTH_SHORT).show();
+                            //Snackbar.make(), R.string.user_already_in, Snackbar.LENGTH_SHORT).show();
                             username_f.setText("");
                             password_f1.setText("");
                             password_f2.setText("");
                         } else {
-                            Intent mainIntent = new Intent(getContext(), MainActivity.class);
+                            Intent mainIntent = new Intent(activity, MainActivity.class);
                             mainIntent.putExtra("json", response.toString());
 
                             Log.d("aaa", response.toString());
@@ -244,9 +164,6 @@ public class SignupFragment extends Fragment {
             public void onErrorResponse(VolleyError error) {
                 //textView.setText("That didn't work!");
                 Log.d("aaa", error.toString());
-                TextView textView = getView().findViewById(R.id.login_text);
-                textView.setText("Response is: " + error.toString());
-
             }
         });
         Log.d("aaa", "check2");
@@ -256,6 +173,60 @@ public class SignupFragment extends Fragment {
         queue.add(jsonRequest);
 
         //Log.d("aaa", res);
+    }
+
+
+    public void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d("aaa", "urlo");
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK) {
+
+            currentPhotoUri = data.getData();
+           // String imagePath = currentPhotoUri.getPath();
+
+            /*Bundle extras = data.getExtras();
+            if (extras != null) {
+                imageBitmap = (Bitmap) extras.get("data");
+                try {
+                    if (imageBitmap != null) {
+                        //method to save the image in the gallery of the device
+                        saveImage(imageBitmap);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }*/
+
+            Log.d("aaa", String.valueOf(currentPhotoUri));
+            // Load a specific media item, and show it in the ImageView
+            Bitmap bitmap = Utility.getImageBitmap(activity, currentPhotoUri);
+            if (bitmap != null) {
+                ImageView imageView = getView().findViewById(R.id.imageView);
+                imageView.setImageBitmap(bitmap);
+            }
+        }
+    }
+
+    private void saveImage(Bitmap bitmap) throws IOException {
+        // Create an image file name
+        String timeStamp =
+                new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.ITALY).format(new Date());
+        String name = "JPEG_" + timeStamp + "_.png";
+
+        ContentResolver resolver = activity.getContentResolver();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, name + ".jpg");
+        contentValues.put(MediaStore.MediaColumns.MIME_TYPE, "image/jpg");
+        Uri imageUri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
+        currentPhotoUri = imageUri;
+        OutputStream fos = resolver.openOutputStream(Objects.requireNonNull(imageUri));
+
+        //for the jpeg quality, it goes from 0 to 100
+        //for the png one, the quality is ignored
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+        if (fos != null) {
+            fos.close();
+        }
     }
 
 }

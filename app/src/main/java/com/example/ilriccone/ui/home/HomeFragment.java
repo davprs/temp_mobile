@@ -29,6 +29,7 @@ public class HomeFragment extends Fragment {
     private HomeViewModel homeViewModel;
     private Activity activity;
 
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 //        homeViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
@@ -96,5 +97,8 @@ public class HomeFragment extends Fragment {
             }
         });
 
+    }
+
+    public void onBackPressed() {
     }
 }
