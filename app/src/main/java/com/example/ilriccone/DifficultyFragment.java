@@ -111,42 +111,35 @@ public class DifficultyFragment extends Fragment {
 
     }
 
-    private void makeRequest(final String category, final String difficulty){
+    private void makeRequest(final String category, String difficulty){
         loading_layout.setVisibility(View.VISIBLE);
         RequestQueue queue = Volley.newRequestQueue(getContext());
         String requestCategory = "23";
-        switch (category.toLowerCase()){
-            case "history":
-                requestCategory = "23";
-                break;
-            case "geography":
-                requestCategory = "22";
-                break;
-            case "computers":
-                requestCategory = "18";
-                break;
-            case "vehicles":
-                requestCategory = "28";
-                break;
-            case "storia":
-                requestCategory = "23";
-                break;
-            case "geografia":
-                requestCategory = "22";
-                break;
-            case "computer":
-                requestCategory = "18";
-                break;
-            case "veicoli":
-                requestCategory = "28";
-                break;
+        String temp = category.toLowerCase();
+        if (temp.equals(getString(R.string.category_1)))
+            requestCategory = "23";
+        else if (temp.equals(getString(R.string.category_2)))
+            requestCategory = "22";
+        else if (temp.equals(getString(R.string.category_3)))
+            requestCategory = "18";
+        else if (temp.equals(getString(R.string.category_4)))
+            requestCategory = "28";
 
-        }
+        temp = difficulty.toLowerCase();
+        if (temp.equals(getString(R.string.difficulty_1)))
+            difficulty = "easy";
+        else if (temp.equals(getString(R.string.difficulty_2)))
+            difficulty = "medium";
+        else if (temp.equals(getString(R.string.difficulty_3)))
+            difficulty = "hard";
+
         String url ="https://opentdb.com/api.php?amount=10&category=" + requestCategory
                 + "&difficulty=" + difficulty + "&type=multiple";
+        Log.d("aaa", "query: " + url);
 
         // Request a string response from the provided URL.
         JSONObject jo = null;
+        final String finalDifficulty = temp;
         JsonRequest jsonRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -155,9 +148,9 @@ public class DifficultyFragment extends Fragment {
                         try {
                             saveQuestions(activity, response);
 
-                            Utility.changeAppBarColor((AppCompatActivity)activity, difficulty);
+                            Utility.changeAppBarColor((AppCompatActivity)activity, finalDifficulty);
                             Utility.replaceFragment((AppCompatActivity)activity, R.id.home_fragment,
-                                    new QuestionFragment(1, category, difficulty), "aaa");
+                                    new QuestionFragment(1, category, finalDifficulty), "aaa");
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -181,7 +174,7 @@ public class DifficultyFragment extends Fragment {
 
         questions.length();
 
-        Log.d("aaa", String.valueOf(questions.length()));
+        Log.d("aaa", "len:" + String.valueOf(questions.length()));
 
         for (int i = 0; i < questions.length(); i++){
             Utility.writeOnPreferences(activity, "question_" + String.valueOf(i + 1), questions.get(i).toString());

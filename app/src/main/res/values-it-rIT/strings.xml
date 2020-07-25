@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">il riccone</string>
+    <string name="login">Login</string>
+    <string name="password_too_long">Password troppo lunga</string>
+    <string name="username_too_long">Username troppo lungo</string>
+    <string name="unsuccessful_login">Username o Password errata</string>
+    <string name="category_1">storia</string>
+    <string name="category_2">geografia</string>
+    <string name="category_3">informatica</string>
+    <string name="category_4">veicoli</string>
+    <string name="difficulty_1">facile</string>
+    <string name="difficulty_2">medio</string>
+    <string name="difficulty_3">difficile</string>
+    <string name="action_settings">Impostazioni</string>
+    <string name="menu_settings">Impostazioni</string>
+    <string name="menu_scores">Punteggio</string>
+    <string name="no_intern_available" translatable="false">Internet non disponibile</string>
+    <string name="settings">Impostazioni</string>
+    <string name="user_already_in">Nome utente già presente</string>
+    <string name="scores">Punteggio</string>
+    <string name="question_counter_pre">domanda: %1$d/10</string>
+    <string name="quiz_result_category">Categoria : %1$s</string>
+    <string name="quiz_result_difficulty">Difficoltà : %1$s</string>
+    <string name="quiz_result_score">Punteggio : %1$s pts</string>
+    <string name="quiz_result_best_score">Miglior punteggio : %1$s pts</string>
+    <string name="chose_picture">Scegli un immagine di profilo</string>
+    <string name="language_string">Lingua</string>
+    <string name="theme_string">Tema</string>
+    <string name="change_language">Scegli la lingua:</string>
+
+</resources>

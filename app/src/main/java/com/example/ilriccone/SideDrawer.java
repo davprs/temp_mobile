@@ -59,6 +59,17 @@ public class SideDrawer extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
+        Log.d("aaa",  String.valueOf(Utility.readFromPreferencesInt(activity, "lang_is_setted")));
+
+        if (Utility.readFromPreferencesInt(activity, "lang_is_setted") != 1) {
+            String lang = Utility.readFromPreferencesString(activity, "lang");
+
+            if (!lang.equals("en")) {
+                Log.d("aaa", lang);
+                Utility.setLocale(activity, lang);
+            }
+            Utility.writeOnPreferences(activity, "lang_is_setted", 1);
+        }
 
         JSONObject json = null;
 
@@ -83,8 +94,15 @@ public class SideDrawer extends AppCompatActivity {
         View header = navigationView.getHeaderView(0);
         TextView in_game_username = header.findViewById(R.id.game_username);
         in_game_username.setText(username);
+
         Utility.replaceFragment((AppCompatActivity) activity, R.id.home_fragment,
                 new HomeFragment(), "aaa");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Utility.writeOnPreferences(activity, "lang_is_setted", 0);
     }
 
     @Override
@@ -177,40 +195,40 @@ public class SideDrawer extends AppCompatActivity {
         Utility.writeOnPreferences(activity, "username", json.getString("username"));
         Utility.writeOnPreferences(activity, "password", json.getString("password"));
 
-        String temp = Utility.getScoreString(getString(R.string.category_1), getString(R.string.difficulty_1));
+        String temp = Utility.getScoreString(activity, getString(R.string.category_1), getString(R.string.difficulty_1));
         Utility.writeOnPreferences(activity, temp, json.getInt("pts_" + temp));
 
-        temp = Utility.getScoreString(getString(R.string.category_1), getString(R.string.difficulty_2));
+        temp = Utility.getScoreString(activity, getString(R.string.category_1), getString(R.string.difficulty_2));
         Utility.writeOnPreferences(activity, temp, json.getInt("pts_" + temp));
 
-        temp = Utility.getScoreString(getString(R.string.category_1), getString(R.string.difficulty_3));
+        temp = Utility.getScoreString(activity, getString(R.string.category_1), getString(R.string.difficulty_3));
         Utility.writeOnPreferences(activity, temp, json.getInt("pts_" + temp));
 
-        temp = Utility.getScoreString(getString(R.string.category_2), getString(R.string.difficulty_1));
+        temp = Utility.getScoreString(activity, getString(R.string.category_2), getString(R.string.difficulty_1));
         Utility.writeOnPreferences(activity, temp, json.getInt("pts_" + temp));
 
-        temp = Utility.getScoreString(getString(R.string.category_2), getString(R.string.difficulty_2));
+        temp = Utility.getScoreString(activity, getString(R.string.category_2), getString(R.string.difficulty_2));
         Utility.writeOnPreferences(activity, temp, json.getInt("pts_" + temp));
 
-        temp = Utility.getScoreString(getString(R.string.category_2), getString(R.string.difficulty_3));
+        temp = Utility.getScoreString(activity, getString(R.string.category_2), getString(R.string.difficulty_3));
         Utility.writeOnPreferences(activity, temp, json.getInt("pts_" + temp));
 
-        temp = Utility.getScoreString(getString(R.string.category_3), getString(R.string.difficulty_1));
+        temp = Utility.getScoreString(activity, getString(R.string.category_3), getString(R.string.difficulty_1));
         Utility.writeOnPreferences(activity, temp, json.getInt("pts_" + temp));
 
-        temp = Utility.getScoreString(getString(R.string.category_3), getString(R.string.difficulty_2));
+        temp = Utility.getScoreString(activity, getString(R.string.category_3), getString(R.string.difficulty_2));
         Utility.writeOnPreferences(activity, temp, json.getInt("pts_" + temp));
 
-        temp = Utility.getScoreString(getString(R.string.category_3), getString(R.string.difficulty_3));
+        temp = Utility.getScoreString(activity, getString(R.string.category_3), getString(R.string.difficulty_3));
         Utility.writeOnPreferences(activity, temp, json.getInt("pts_" + temp));
 
-        temp = Utility.getScoreString(getString(R.string.category_4), getString(R.string.difficulty_1));
+        temp = Utility.getScoreString(activity, getString(R.string.category_4), getString(R.string.difficulty_1));
         Utility.writeOnPreferences(activity, temp, json.getInt("pts_" + temp));
 
-        temp = Utility.getScoreString(getString(R.string.category_4), getString(R.string.difficulty_2));
+        temp = Utility.getScoreString(activity, getString(R.string.category_4), getString(R.string.difficulty_2));
         Utility.writeOnPreferences(activity, temp, json.getInt("pts_" + temp));
 
-        temp = Utility.getScoreString(getString(R.string.category_4), getString(R.string.difficulty_3));
+        temp = Utility.getScoreString(activity, getString(R.string.category_4), getString(R.string.difficulty_3));
         Utility.writeOnPreferences(activity, temp, json.getInt("pts_" + temp));
 
     }

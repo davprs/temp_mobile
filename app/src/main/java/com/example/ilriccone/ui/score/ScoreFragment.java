@@ -1,7 +1,6 @@
-package com.example.ilriccone.ui.gallery;
+package com.example.ilriccone.ui.score;
 
 import android.app.Activity;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,19 +13,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.example.ilriccone.LoginActivity;
 import com.example.ilriccone.R;
 import com.example.ilriccone.Utility;
-
-import org.w3c.dom.Text;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class GalleryFragment extends Fragment {
+public class ScoreFragment extends Fragment {
 
     private GalleryViewModel galleryViewModel;
     private TextView label1, label2, label3, label4;
@@ -114,12 +109,11 @@ public class GalleryFragment extends Fragment {
         }
 
         for(TextView value : vals){
-            Log.d("aaa", Utility.getScoreString(categories.get(vals.indexOf(value)), newDiff));
+            Log.d("aaa", Utility.getScoreString(activity, categories.get(vals.indexOf(value)), newDiff));
             value.setText(String.valueOf(
-                    Utility.readFromPreferencesInt(
-                            activity, Utility.getScoreString(
-                                    categories.get(
-                                            vals.indexOf(value)), newDiff))) + getString(R.string.pts));
+                    Utility.readFromPreferencesInt( activity, Utility.getScoreString(
+                                                                activity,
+                                                                categories.get( vals.indexOf(value)), newDiff))) + getString(R.string.pts));
         }
 
     }

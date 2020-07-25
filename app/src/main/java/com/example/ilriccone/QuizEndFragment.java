@@ -90,7 +90,7 @@ public class QuizEndFragment extends Fragment {
         if (quitzScore == 0){
             quitzScore = getQuitzScore();
         }
-        int oldBestScore = Utility.readFromPreferencesInt((AppCompatActivity)activity, Utility.getScoreString(category, difficulty));
+        int oldBestScore = Utility.readFromPreferencesInt((AppCompatActivity)activity, Utility.getScoreString(activity, category, difficulty));
         if (oldBestScore < quitzScore){
             updateLocal(quitzScore);
             updateOnServer(quitzScore);
@@ -101,7 +101,7 @@ public class QuizEndFragment extends Fragment {
     }
 
     private void updateLocal(int quitzScore){
-        Utility.writeOnPreferences((AppCompatActivity)activity, Utility.getScoreString(category, difficulty),
+        Utility.writeOnPreferences((AppCompatActivity)activity, Utility.getScoreString(activity, category, difficulty),
                 quitzScore);
     }
 

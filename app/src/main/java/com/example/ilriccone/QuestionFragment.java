@@ -89,7 +89,10 @@ public class QuestionFragment extends Fragment {
         TextView q_counter = getView().findViewById(R.id.text_view_question_count);
         q_counter.setText(getString(R.string.question_counter_pre, i));
         TextView tw = getView().findViewById(R.id.text_view_question);
-        tw.setText(json.getString("question"));
+        String temp = json.getString("question");
+        temp = temp.replace("&#039;", "'")
+                .replace("&amp;", "&");
+        tw.setText(temp);
         progressBar=(ProgressBar)getView().findViewById(R.id.progressBar);
         MyCountDownTimer countDownTimer = new MyCountDownTimer(10000,
                 1000, progressBar);
@@ -117,12 +120,18 @@ public class QuestionFragment extends Fragment {
         incorrectAnswers.addAll(Arrays.asList(json.getString("incorrect_answers")
                 .replace("[\"", "")
                 .replace("\"]", "")
+                .replace("&quot;", "\"")
+                .replace("&#039;", "'")
+                .replace("&amp;", "&")
                 .split("\",\""))
         );
 
         Collections.shuffle(buttons);
         Button correct = buttons.pop();
-        correct.setText(json.getString("correct_answer"));
+        correct.setText(json.getString("correct_answer")
+                .replace("&#039;", "'")
+                .replace("&quot;", "\"")
+                .replace("&amp;", "&"));
         correct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -146,6 +155,8 @@ public class QuestionFragment extends Fragment {
     private void setupButtonsBackground(){
         List<Button> buttonList = new LinkedList(Arrays.asList(b1, b2, b3, b4));
         Integer style = 0;
+
+        Log.d("aaa", difficulty + " " + getString(R.string.difficulty_1));
 
         if(difficulty.equals(getString(R.string.difficulty_1))){
             style = R.drawable.refined_answer_diff_1_button;

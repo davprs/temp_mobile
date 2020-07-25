@@ -1,4 +1,4 @@
-package com.example.ilriccone.ui.gallery;
+package com.example.ilriccone.ui.score;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

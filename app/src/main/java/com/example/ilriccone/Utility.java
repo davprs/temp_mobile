@@ -4,12 +4,16 @@ import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.util.DisplayMetrics;
 import android.util.Log;
 
 import androidx.appcompat.app.ActionBar;
@@ -84,8 +88,45 @@ public class Utility {
         }
     }
 
-    static public String getScoreString(String category, String difficulty){
-        return category + "_" + difficulty;
+    static public String getScoreString(Activity activity, String category, String difficulty){
+        String cat_code = null;
+        String dif_code = null;
+
+        if (category.equals(activity.getString(R.string.category_1))){
+            cat_code = "1";
+        } else if (category.equals(activity.getString(R.string.category_2))){
+            cat_code = "2";
+        } else if (category.equals(activity.getString(R.string.category_3))){
+            cat_code = "3";
+        } else if (category.equals(activity.getString(R.string.category_4))){
+            cat_code = "4";
+        }
+
+        if (difficulty.equals(activity.getString(R.string.difficulty_1))){
+            dif_code = "1";
+        } else if (difficulty.equals(activity.getString(R.string.difficulty_2))){
+            dif_code = "2";
+        } else if (difficulty.equals(activity.getString(R.string.difficulty_3))){
+            dif_code = "3";
+        }
+
+
+        
+        return cat_code + "_" + dif_code;
+    }
+
+    static public void setLocale(Activity activity, String lang) {
+        if(lang != null) {
+            Locale myLocale = new Locale(lang);
+            Resources res = activity.getResources();
+            DisplayMetrics dm = res.getDisplayMetrics();
+            Configuration conf = res.getConfiguration();
+            conf.locale = myLocale;
+            res.updateConfiguration(conf, dm);
+            Intent refresh = new Intent(activity, MainActivity.class);
+            activity.finish();
+            activity.startActivity(refresh);
+        }
     }
 
     static public Boolean readFromPreferences(Activity activity, String name){
