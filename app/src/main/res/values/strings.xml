@@ -1,11 +1,16 @@
 <resources>
-    <string name="server_address" translatable="false">http://192.168.1.5/ilriccone</string>
-    <string name="server_address1" translatable="false">http://10.0.2.2/ilriccone</string>
+    <string name="server_address1" translatable="false">http://192.168.1.4/ilriccone</string>
+    <string name="server_address" translatable="false">http://10.0.2.2/ilriccone</string>
     <string name="app_name">il riccone</string>
     <string name="login">Login Page</string>
     <string name="password_too_long">Too Long Password</string>
     <string name="username_too_long">Too Long Username</string>
     <string name="unsuccessful_login">WRONG Username or Password</string>
+
+    <string-array name="theme_array">
+        <item>Material-Light</item>
+        <item>YOUR-CUSTOM-THEME-NAME</item>
+    </string-array>
 
     <string name="category_1">history</string>
     <string name="category_2">geography</string>
@@ -44,6 +49,21 @@
     <string name="language_string">Language</string>
     <string name="theme_string">Theme</string>
     <string name="change_language">Choose a language:</string>
+
+    <string name="category_1_code" translatable="false">23</string>
+    <string name="category_2_code" translatable="false">22</string>
+    <string name="category_3_code" translatable="false">18</string>
+    <string name="category_4_code" translatable="false">28</string>
+    <string name="upload_image_to_server" translatable="false">/uploadImage.php?</string>
+    <string name="get_image_server" translatable="false">getUserImage.php?</string>
+    <string name="logout" translatable="false">Logout</string>
+    <string name="theme_light">light</string>
+    <string name="theme_dark">dark</string>
+    <string name="change_theme">change theme</string>
+    <string name="menu_image">Change Image</string>
+    <string name="logout_string">Are you sure?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 
 
 </resources>

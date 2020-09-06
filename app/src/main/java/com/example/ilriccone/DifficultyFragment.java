@@ -77,6 +77,7 @@ public class DifficultyFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (InternetUtilities.getIsNetworkConnected()) {
+                    InternetUtilities.getSnackbar().dismiss();
                     makeRequest(category, getString(R.string.difficulty_1));
                 } else {
                     InternetUtilities.getSnackbar().show();
@@ -89,6 +90,7 @@ public class DifficultyFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (InternetUtilities.getIsNetworkConnected()) {
+                    InternetUtilities.getSnackbar().dismiss();
                     makeRequest(category, getString(R.string.difficulty_2));
                 } else {
                     InternetUtilities.getSnackbar().show();
@@ -102,6 +104,7 @@ public class DifficultyFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (InternetUtilities.getIsNetworkConnected()) {
+                    InternetUtilities.getSnackbar().dismiss();
                     makeRequest(category, getString(R.string.difficulty_3));
                 } else {
                     InternetUtilities.getSnackbar().show();

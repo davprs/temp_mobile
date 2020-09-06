@@ -28,5 +28,12 @@
     <string name="language_string">Lingua</string>
     <string name="theme_string">Tema</string>
     <string name="change_language">Scegli la lingua:</string>
+    <string name="theme_light">chiaro</string>
+    <string name="theme_dark">scuro</string>
+    <string name="change_theme">cambia tema</string>
+    <string name="menu_image">Cambia immagine</string>
+    <string name="logout_string">Sei sicuro?</string>
+    <string name="yes">Sì</string>
+    <string name="no">No</string>
 
 </resources>

@@ -10,19 +10,20 @@
         android:startColor="@color/dif1_clear"
         android:endColor="@color/dif1_secondary"
         android:type="linear"
-        />
-    <padding
-        android:left="0dp"
-        android:top="0dp"
-        android:right="0dp"
-        android:bottom="0dp"
-        />
-    <size
-        android:width="270dp"
-        android:height="60dp"
-        />
-    <stroke
-        android:width="3dp"
-        android:color="#FFFFFF"
-        />
+    />
+<padding
+    android:left="0dp"
+    android:top="0dp"
+    android:right="0dp"
+    android:bottom="0dp"
+    />
+<size
+    android:width="270dp"
+    android:height="60dp"
+    />
+<stroke
+    android:width="3dp"
+    android:color="@color/white"
+    />
+
 </shape>

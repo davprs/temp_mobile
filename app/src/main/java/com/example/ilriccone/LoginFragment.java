@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,6 +26,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 
 import org.json.JSONException;
@@ -108,9 +108,6 @@ public class LoginFragment extends Fragment {
                         InternetUtilities.getSnackbar().show();
                     }
                 }
-
-
-                Toast.makeText(getContext(), "premutooo", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -155,12 +152,20 @@ public class LoginFragment extends Fragment {
                         try {
                             response.getString("1");
                             TextView textView = getView().findViewById(R.id.login_text);
-                            textView.setText(getString(R.string.unsuccessful_login));
+                            Snackbar.make(getView(), R.string.unsuccessful_login, Snackbar.LENGTH_SHORT).show();
+
                         } catch (JSONException e) {
                             Intent mainIntent = new Intent(getContext(), MainActivity.class);
-                            mainIntent.putExtra("json", response.toString());
+                            Log.d("ddd", "lol1  : " + response.toString());
 
-                            Log.d("aaa", response.toString());
+                            if(response.remove("user_image").toString().length()>10) {
+                                Log.d("ddd", "putting extra img = 1");
+                                mainIntent.putExtra("img", "1");
+                            }
+                            mainIntent.putExtra("json", response.toString());
+                            Log.d("ddd", "lol2  : " + response.toString());
+
+                            //Log.d("aaa", response.toString());
                             startActivity(mainIntent);
 
                             res_array = response;
@@ -199,10 +204,11 @@ public class LoginFragment extends Fragment {
             if (password.length() <= MAX_PASS){
                 return true;
             } else {
-                Toast.makeText(getActivity(), R.string.password_too_long, Toast.LENGTH_SHORT).show();
+                Snackbar.make(getView(), R.string.password_too_long, Snackbar.LENGTH_SHORT).show();
             }
         } else {
-            Toast.makeText(getActivity(), R.string.username_too_long, Toast.LENGTH_SHORT).show();
+            Snackbar.make(getView(), R.string.username_too_long, Snackbar.LENGTH_SHORT).show();
+
         }
         return false;
     }

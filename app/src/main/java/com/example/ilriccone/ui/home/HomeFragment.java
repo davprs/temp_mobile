@@ -21,13 +21,18 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.ilriccone.DifficultyFragment;
+import com.example.ilriccone.InternetUtilities;
 import com.example.ilriccone.R;
+import com.example.ilriccone.SideDrawer;
 import com.example.ilriccone.Utility;
+
+import java.util.Objects;
 
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
     private Activity activity;
+    private View header;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -46,7 +51,7 @@ public class HomeFragment extends Fragment {
         for(int i = 0; i < fm.getBackStackEntryCount(); ++i) {
             fm.popBackStack();
         }
-
+        InternetUtilities.makeSnackbar((AppCompatActivity)activity, R.id.home_fragment);
         Utility.changeAppBarColor((AppCompatActivity)activity, Utility.MAIN_APPBAR_COLOR);
 
         setupButtons();

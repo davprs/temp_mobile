@@ -52,6 +52,10 @@ public class MainActivity extends AppCompatActivity {
 
             if (mJsonObject != null){
                 Log.d("aaa","innn");
+                if(getIntent().hasExtra("img")) {
+                    loginIntent.putExtra("img", getIntent().getStringExtra("img"));
+                }
+
                 loginIntent.putExtra("json", mJsonObject.toString());
             }
 

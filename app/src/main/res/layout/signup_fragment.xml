@@ -127,8 +127,12 @@
             app:layout_constraintTop_toBottomOf="@+id/captureButton"
             tools:src="@tools:sample/backgrounds/scenic[2]" />
 
-        <Button
+
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/signup_button1"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+            android:theme="@style/FormButton"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
@@ -137,6 +141,7 @@
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintLeft_toLeftOf="@+id/imageView"
             app:layout_constraintRight_toRightOf="@+id/imageView" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

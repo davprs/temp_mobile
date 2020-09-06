@@ -5,10 +5,14 @@ import android.util.Log;
 import android.widget.ProgressBar;
 
 public class MyCountDownTimer extends CountDownTimer {
+    private QuestionFragment questionFragment;
+    private int i;
     private ProgressBar progressBar;
 
-    public MyCountDownTimer(long millisInFuture, long countDownInterval, ProgressBar progressBar) {
+    public MyCountDownTimer(long millisInFuture, long countDownInterval, ProgressBar progressBar, QuestionFragment questionFragment, int i) {
         super(millisInFuture, countDownInterval);
+        this.questionFragment = questionFragment;
+        this.i = i;
         this.progressBar = progressBar;
     }
 
@@ -22,6 +26,9 @@ public class MyCountDownTimer extends CountDownTimer {
 
     @Override
     public void onFinish() {
-        Log.d("aaa", "Finito");
+        if(questionFragment.visible)
+            questionFragment.wrongAnswer(i);
     }
+
+
 }

@@ -42,8 +42,20 @@
         tools:layout="@layout/fragment_scores" />
 
     <fragment
+        android:id="@+id/nav_image"
+        android:name="com.example.ilriccone.ui.profile_image.ProfileImageFragment"
+        android:label="@string/menu_image"
+        tools:layout="@layout/fragment_settings" />
+
+    <fragment
         android:id="@+id/nav_settings"
-        android:name="com.example.ilriccone.ui.slideshow.SlideshowFragment"
+        android:name="com.example.ilriccone.ui.settings.SlideshowFragment"
+        android:label="@string/menu_settings"
+        tools:layout="@layout/fragment_settings" />
+
+    <fragment
+        android:id="@+id/nav_logout"
+        android:name="com.example.ilriccone.ui.logout.LogoutFragment"
         android:label="@string/menu_settings"
         tools:layout="@layout/fragment_settings" />
 </navigation>

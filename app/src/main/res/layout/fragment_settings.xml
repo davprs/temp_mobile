@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/fragment_settings"
-    tools:context=".ui.slideshow.SlideshowFragment">
+    tools:context=".ui.settings.SlideshowFragment">
 
     <LinearLayout
         android:id="@+id/linearLayout"

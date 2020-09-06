@@ -41,6 +41,7 @@ public class QuestionFragment extends Fragment {
     private Integer questionNumber;
     private String difficulty;
     private ProgressBar progressBar;
+    public Boolean visible = false;
 
     public QuestionFragment(int questionNumber, String category, String difficulty) {
         this.questionNumber = questionNumber;
@@ -59,6 +60,7 @@ public class QuestionFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         activity = getActivity();
+        visible = true;
     }
 
     public void onBackPressed() {
@@ -74,8 +76,8 @@ public class QuestionFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        InternetUtilities.makeSnackbar(getActivity(), R.id.question_fragment);
-        InternetUtilities.registerNetworkCallback(getActivity());
+        //InternetUtilities.makeSnackbar(getActivity(), R.id.question_fragment);
+        //InternetUtilities.registerNetworkCallback(getActivity());
         try {
             setupQuestionFragment(questionNumber);
         } catch (JSONException e) {
@@ -90,12 +92,15 @@ public class QuestionFragment extends Fragment {
         q_counter.setText(getString(R.string.question_counter_pre, i));
         TextView tw = getView().findViewById(R.id.text_view_question);
         String temp = json.getString("question");
-        temp = temp.replace("&#039;", "'")
+        temp = temp.replace("[\"", "")
+                .replace("\"]", "")
+                .replace("&quot;", "\"")
+                .replace("&#039;", "'")
                 .replace("&amp;", "&");
         tw.setText(temp);
         progressBar=(ProgressBar)getView().findViewById(R.id.progressBar);
         MyCountDownTimer countDownTimer = new MyCountDownTimer(10000,
-                1000, progressBar);
+                1000, progressBar, this, i);
         countDownTimer.start();
 
 
@@ -123,11 +128,12 @@ public class QuestionFragment extends Fragment {
                 .replace("&quot;", "\"")
                 .replace("&#039;", "'")
                 .replace("&amp;", "&")
+                .replace("&Auml", "Ä")
                 .split("\",\""))
         );
 
         Collections.shuffle(buttons);
-        Button correct = buttons.pop();
+        final Button correct = buttons.pop();
         correct.setText(json.getString("correct_answer")
                 .replace("&#039;", "'")
                 .replace("&quot;", "\"")
@@ -135,8 +141,7 @@ public class QuestionFragment extends Fragment {
         correct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Utility.writeOnPreferences(activity, "question_" + i + "_answer_status", true);
-                jumpToNextQuestion(i);
+                rightAnswer(i);
             }
         });
 
@@ -145,11 +150,22 @@ public class QuestionFragment extends Fragment {
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Utility.writeOnPreferences(activity, "question_" + i + "_answer_status", false);
-                    jumpToNextQuestion(i);
+                    wrongAnswer(i);
                 }
             });
         }
+    }
+
+    public void wrongAnswer(int i){
+        visible = false;
+        Utility.writeOnPreferences(activity, "question_" + i + "_answer_status", false);
+        jumpToNextQuestion(i);
+    }
+
+    public void rightAnswer(int i){
+        visible = false;
+        Utility.writeOnPreferences(activity, "question_" + i + "_answer_status", true);
+        jumpToNextQuestion(i);
     }
 
     private void setupButtonsBackground(){
@@ -173,6 +189,7 @@ public class QuestionFragment extends Fragment {
     }
 
     private void jumpToNextQuestion(int i) {
+        visible = false;
         if (i < numberOfQuestions) {
             Utility.replaceFragment((AppCompatActivity) activity, R.id.home_fragment, new QuestionFragment(i + 1, category, difficulty), "aaa");
         } else {

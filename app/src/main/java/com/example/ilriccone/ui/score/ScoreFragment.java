@@ -109,7 +109,7 @@ public class ScoreFragment extends Fragment {
         }
 
         for(TextView value : vals){
-            Log.d("aaa", Utility.getScoreString(activity, categories.get(vals.indexOf(value)), newDiff));
+            Log.d("aaa", "Lol* " + Utility.getScoreString(activity, categories.get(vals.indexOf(value)), newDiff));
             value.setText(String.valueOf(
                     Utility.readFromPreferencesInt( activity, Utility.getScoreString(
                                                                 activity,

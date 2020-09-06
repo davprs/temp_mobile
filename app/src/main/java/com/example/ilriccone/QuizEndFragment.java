@@ -14,6 +14,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.ilriccone.ui.home.HomeFragment;
 
 public class QuizEndFragment extends Fragment {
@@ -106,8 +112,64 @@ public class QuizEndFragment extends Fragment {
     }
 
     private void updateOnServer(int bestScore){
-        Log.d("aaa", "TODO!!");
+        String urlCategory = "0", urlDifficulty="0";
+        String temp = category.toLowerCase();
+        if (temp.equals(getString(R.string.category_1)))
+            urlCategory = getString(R.string.category_1_code);
+        else if (temp.equals(getString(R.string.category_2)))
+            urlCategory = getString(R.string.category_2_code);
+        else if (temp.equals(getString(R.string.category_3)))
+            urlCategory = getString(R.string.category_3_code);
+        else if (temp.equals(getString(R.string.category_4)))
+            urlCategory = getString(R.string.category_4_code);
+
+        temp = difficulty.toLowerCase();
+        if (temp.equals(getString(R.string.difficulty_1)))
+            urlDifficulty = "easy";
+        else if (temp.equals(getString(R.string.difficulty_2)))
+            urlDifficulty = "medium";
+        else if (temp.equals(getString(R.string.difficulty_3)))
+            urlDifficulty = "hard";
+        String command = "pts_" + urlCategory + "_" + urlDifficulty + "&pts=" + bestScore;
+
+        String url = getString(R.string.server_address) + "/updateScore.php?username=" +
+                Utility.readFromPreferencesString(activity, "username")
+                + "&category=" + command;
+        Log.d("aaa", url);
+
+        sendServerUpdate(url);
     }
+
+    private void sendServerUpdate(final String url){
+
+// Instantiate the RequestQueue.
+        RequestQueue queue = Volley.newRequestQueue(getContext());
+
+// Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Display the first 500 characters of the response string.
+                        Log.d("aaa", "Server response : " + response);
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                String temp = Utility.readFromPreferencesString(activity, "scores_update");
+                //temp = temp.equals("nulla") ? "" : temp;
+                Utility.writeOnPreferences(activity, "scores_update", temp + url + ",");
+                Log.d("aaa", temp + url + ",");
+                Log.d("aaa", "Server request : Something went wrong!");
+            }
+
+        });
+
+// Add the request to the RequestQueue.
+        queue.add(stringRequest);
+
+    }
+
 
     public void onBackPressed() {
         Utility.replaceQuestionFragment((AppCompatActivity)activity, R.id.home_fragment,

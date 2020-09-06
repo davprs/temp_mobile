@@ -1,4 +1,4 @@
-package com.example.ilriccone;
+package com.example.ilriccone.ui.profile_image;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -32,6 +32,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
@@ -45,6 +46,10 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.ilriccone.InternetUtilities;
+import com.example.ilriccone.MainActivity;
+import com.example.ilriccone.R;
+import com.example.ilriccone.Utility;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -66,10 +71,11 @@ import java.util.Objects;
 
 import static android.app.Activity.RESULT_OK;
 
-public class SignupFragment extends Fragment {
+public class ProfileImageFragment extends Fragment {
 
     static final int PICK_IMAGE_REQUEST = 1;
     private ImageView imageView;
+    private String username;
     private Button load_image, signup;
     private TextInputEditText username_f, password_f1, password_f2;
     private Image images;
@@ -82,7 +88,7 @@ public class SignupFragment extends Fragment {
     public View onCreateView(
             @NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.signup_fragment, container, false);
+        return inflater.inflate(R.layout.fragment_upload_image, container, false);
     }
 
     //scegli immagine galleria
@@ -101,26 +107,19 @@ public class SignupFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         activity = getActivity();
-        InternetUtilities.makeSnackbar(getActivity(), R.id.signup_fragment);
-        load_image = getView().findViewById(R.id.captureButton);
-        imageView = getView().findViewById(R.id.imageView);
-        signup = getView().findViewById(R.id.signup_button1);
-        username_f = getView().findViewById(R.id.signup_username);
-        password_f1 = getView().findViewById(R.id.signup_password1);
-        password_f2 = getView().findViewById(R.id.signup_password2);
+        username = Utility.readFromPreferencesString(activity, "username");
+        InternetUtilities.makeSnackbar(getActivity(), R.id.upload_image_layout);
+        load_image = getView().findViewById(R.id.captureButton_upload);
+        imageView = getView().findViewById(R.id.profile_img_upload);
+        String user_image = Utility.readFromPreferencesString(activity, "image");
+        if(user_image.length() > 10){
+            byte[] decodedString = Base64.decode(user_image, Base64.DEFAULT);
+            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            imageView.setImageBitmap(decodedByte);
+        }
 
-        signup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (isSignupFormRight()) {
-                    makeRequest(getString(R.string.server_address) + "/insertUser.php?username=" +
-                            username_f.getText() + "&password=" + password_f1.getText());
+        Utility.changeAppBarColor((AppCompatActivity)activity, Utility.MAIN_APPBAR_COLOR);
 
-                } else {
-                    Snackbar.make(getView(), R.string.unsuccessful_login, Snackbar.LENGTH_SHORT).show();
-                }
-            }
-        });
 
         load_image.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,63 +127,6 @@ public class SignupFragment extends Fragment {
                 startActivityForResult(showFileChooser(), PICK_IMAGE_REQUEST);
             }
         });
-    }
-
-    private boolean isSignupFormRight() {
-        return (password_f1.getText().toString().equals(password_f2.getText().toString()) && username_f.getText().toString().length() > 0);
-    }
-
-
-    private void makeRequest(String url) {
-        RequestQueue queue = Volley.newRequestQueue(activity);
-
-        // Request a string response from the provided URL.
-        JSONObject jo = null;
-        JsonRequest jsonRequest = new JsonObjectRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        if (encodedImage != null)
-                            uploadImage();
-
-                        String res = "";
-                        try {
-                            res = response.getString("2");
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        if (res.equals("already in")){
-                            //Snackbar.make(), R.string.user_already_in, Snackbar.LENGTH_SHORT).show();
-                            username_f.setText("");
-                            password_f1.setText("");
-                            password_f2.setText("");
-                        } else {
-                            Intent mainIntent = new Intent(activity, MainActivity.class);
-                            mainIntent.putExtra("json", response.toString());
-                            if (encodedImage != null){
-                                mainIntent.putExtra("img", "1");
-                            }
-
-                            Log.d("aaa", response.toString());
-                            startActivity(mainIntent);
-                        }
-
-                        //Log.d("aaa", response.toString());
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                //textView.setText("That didn't work!");
-                Log.d("aaa", error.toString());
-            }
-        });
-        Log.d("aaa", "check2");
-
-        // Add the request to the RequestQueue.
-        //jsonRequest.setTag(InternetUtilities.OSM_REQUEST_TAG);
-        queue.add(jsonRequest);
-
-        //Log.d("aaa", res);
     }
 
     private void uploadImage(){
@@ -211,7 +153,7 @@ public class SignupFragment extends Fragment {
             protected Map<String, String> getParams()
             {
                 Map<String, String>  params = new HashMap<>();
-                params.put("username", username_f.getText().toString());
+                params.put("username", username);
                 params.put("image", encodedImage);
 
                 return params;
@@ -229,30 +171,25 @@ public class SignupFragment extends Fragment {
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK) {
 
             currentPhotoUri = data.getData();
-           // String imagePath = currentPhotoUri.getPath();
-
-            /*Bundle extras = data.getExtras();
-            if (extras != null) {
-                imageBitmap = (Bitmap) extras.get("data");
-                try {
-                    if (imageBitmap != null) {
-                        //method to save the image in the gallery of the device
-                        saveImage(imageBitmap);
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }*/
 
             Log.d("aab", String.valueOf(currentPhotoUri));
             // Load a specific media item, and show it in the ImageView
             Bitmap bitmap = Utility.getImageBitmap(activity, currentPhotoUri);
             if (bitmap != null) {
-                ImageView imageView = getView().findViewById(R.id.imageView);
+                ImageView imageView = getView().findViewById(R.id.profile_img_upload);
                 imageView.setImageBitmap(bitmap);
                 convertToBase64(bitmap);
+                storeImage();
+                uploadImage();
+                Utility.reloadActivity(activity);
             }
         }
+    }
+
+    private void storeImage(){
+// Request a string response from the provided URL.
+        Utility.writeOnPreferences(activity, "image", encodedImage);
+
     }
 
     private void convertToBase64(Bitmap bitmap){
@@ -263,27 +200,4 @@ public class SignupFragment extends Fragment {
 
         encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
     }
-
-    private void saveImage(Bitmap bitmap) throws IOException {
-        // Create an image file name
-        String timeStamp =
-                new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.ITALY).format(new Date());
-        String name = "JPEG_" + timeStamp + "_.png";
-
-        ContentResolver resolver = activity.getContentResolver();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, name + ".jpg");
-        contentValues.put(MediaStore.MediaColumns.MIME_TYPE, "image/jpg");
-        Uri imageUri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
-        currentPhotoUri = imageUri;
-        OutputStream fos = resolver.openOutputStream(Objects.requireNonNull(imageUri));
-
-        //for the jpeg quality, it goes from 0 to 100
-        //for the png one, the quality is ignored
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-        if (fos != null) {
-            fos.close();
-        }
-    }
-
 }

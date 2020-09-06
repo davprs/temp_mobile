@@ -7,12 +7,62 @@
         <item name="colorOnSurface">@android:color/holo_orange_light</item>
     </style>
 
+    <style name="input">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="color">#FFFFFF</item>
+        <item name="android:textColorHint">#FFFFFF</item>
+    </style>
+
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorDefaultAppBar</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">#FFFFFF</item>
+        <item name="android:textColor">#000000</item>
+        <item name="android:textColorHint">#AAAAAA</item>
+        <item name="color">#FFFFFF</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+
     </style>
+
+    <style name="NightAppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorDefaultAppBar</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">#333330</item>
+        <item name="android:textColor">#000000</item>
+        <item name="android:textColorHint">#AAAAAA</item>
+        <item name="textInputStyle">@style/input</item>
+        <item name="color">#FFFFFF</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+
+    </style>
+
+    <style name="dif1_theme">
+        <item name="android:centerColor">@color/dif1</item>
+        <item name="android:startColor">@color/dif1_clear</item>
+        <item name="android:endColor">@color/dif1_secondary</item>
+        <item name="android:color">@color/white</item>
+    </style>
+
+    <style name="dif2_theme">
+        <item name="android:centerColor">@color/dif2</item>
+        <item name="android:startColor">@color/dif2_clear</item>
+        <item name="android:endColor">@color/dif2_secondary</item>
+        <item name="android:color">@color/white</item>
+    </style>
+
+    <style name="dif3_theme">
+        <item name="android:centerColor">@color/dif3</item>
+        <item name="android:startColor">@color/dif3_clear</item>
+        <item name="android:endColor">@color/dif3_secondary</item>
+        <item name="android:color">@color/white</item>
+    </style>
+
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>

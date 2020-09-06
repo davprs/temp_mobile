@@ -1,4 +1,4 @@
-package com.example.ilriccone.ui.slideshow;
+package com.example.ilriccone.ui.settings;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

@@ -93,26 +93,32 @@ public class Utility {
         String dif_code = null;
 
         if (category.equals(activity.getString(R.string.category_1))){
-            cat_code = "1";
+            cat_code = "23";
         } else if (category.equals(activity.getString(R.string.category_2))){
-            cat_code = "2";
+            cat_code = "22";
         } else if (category.equals(activity.getString(R.string.category_3))){
-            cat_code = "3";
+            cat_code = "18";
         } else if (category.equals(activity.getString(R.string.category_4))){
-            cat_code = "4";
+            cat_code = "28";
         }
 
         if (difficulty.equals(activity.getString(R.string.difficulty_1))){
-            dif_code = "1";
+            dif_code = "easy";
         } else if (difficulty.equals(activity.getString(R.string.difficulty_2))){
-            dif_code = "2";
+            dif_code = "medium";
         } else if (difficulty.equals(activity.getString(R.string.difficulty_3))){
-            dif_code = "3";
+            dif_code = "hard";
         }
 
 
         
         return cat_code + "_" + dif_code;
+    }
+
+    static public void reloadActivity(Activity activity){
+        Intent refresh = new Intent(activity, MainActivity.class);
+        activity.finish();
+        activity.startActivity(refresh);
     }
 
     static public void setLocale(Activity activity, String lang) {
@@ -127,6 +133,11 @@ public class Utility {
             activity.finish();
             activity.startActivity(refresh);
         }
+    }
+
+    static public Locale getLocale(Activity activity) {
+        Locale current = activity.getResources().getConfiguration().locale;
+        return current;
     }
 
     static public Boolean readFromPreferences(Activity activity, String name){
