@@ -51,7 +51,8 @@ public class HomeFragment extends Fragment {
         for(int i = 0; i < fm.getBackStackEntryCount(); ++i) {
             fm.popBackStack();
         }
-        InternetUtilities.makeSnackbar((AppCompatActivity)activity, R.id.home_fragment);
+        //InternetUtilities.registerNetworkCallback(activity);
+        //InternetUtilities.makeSnackbar((AppCompatActivity)activity, R.id.home_fragment);
         Utility.changeAppBarColor((AppCompatActivity)activity, Utility.MAIN_APPBAR_COLOR);
 
         setupButtons();

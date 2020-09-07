@@ -67,8 +67,8 @@ public class DifficultyFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        InternetUtilities.makeSnackbar(getActivity(), R.id.fragment_difficulty);
-        InternetUtilities.registerNetworkCallback(getActivity());
+        //InternetUtilities.makeSnackbar(getActivity(), R.id.fragment_difficulty);
+        //InternetUtilities.registerNetworkCallback(getActivity());
     }
 
     private void setupButtons(){

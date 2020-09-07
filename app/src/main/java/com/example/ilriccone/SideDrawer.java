@@ -64,6 +64,12 @@ public class SideDrawer extends AppCompatActivity {
 
         setContentView(R.layout.activity_side_drawer);
 
+        InternetUtilities.makeSnackbar((AppCompatActivity)activity, R.id.nav_host_fragment);
+        InternetUtilities.registerNetworkCallback(activity);
+        if(!InternetUtilities.getIsNetworkConnected()){
+            InternetUtilities.getSnackbar().show();
+        }
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         /*FloatingActionButton fab = findViewById(R.id.fab);

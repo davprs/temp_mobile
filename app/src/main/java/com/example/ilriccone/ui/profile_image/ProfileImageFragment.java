@@ -108,7 +108,7 @@ public class ProfileImageFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         activity = getActivity();
         username = Utility.readFromPreferencesString(activity, "username");
-        InternetUtilities.makeSnackbar(getActivity(), R.id.upload_image_layout);
+        //InternetUtilities.makeSnackbar(getActivity(), R.id.upload_image_layout);
         load_image = getView().findViewById(R.id.captureButton_upload);
         imageView = getView().findViewById(R.id.profile_img_upload);
         String user_image = Utility.readFromPreferencesString(activity, "image");
