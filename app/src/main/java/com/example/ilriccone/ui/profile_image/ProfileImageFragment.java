@@ -133,19 +133,19 @@ public class ProfileImageFragment extends Fragment {
         RequestQueue queue = Volley.newRequestQueue(getContext());
         final String command = getString(R.string.server_address) + getString(R.string.upload_image_to_server);
 // Request a string response from the provided URL.
-        Log.d("aac", command);
+        //Log.d("aac", command);
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, command,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         // Display the first 500 characters of the response string.
-                        Log.d("aaa", "Server response : " + response);
+                        //Log.d("aaa", "Server response : " + response);
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("aaa", error.toString());
+                //Log.d("aaa", error.toString());
             }
 
         }){
@@ -167,12 +167,12 @@ public class ProfileImageFragment extends Fragment {
 
     public void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.d("aaa", "urlo");
+        //Log.d("aaa", "urlo");
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK) {
 
             currentPhotoUri = data.getData();
 
-            Log.d("aab", String.valueOf(currentPhotoUri));
+            //Log.d("aab", String.valueOf(currentPhotoUri));
             // Load a specific media item, and show it in the ImageView
             Bitmap bitmap = Utility.getImageBitmap(activity, currentPhotoUri);
             if (bitmap != null) {

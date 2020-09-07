@@ -86,7 +86,7 @@ public class SideDrawer extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-        Log.d("aaa",  String.valueOf(Utility.readFromPreferencesInt(activity, "lang_is_setted")));
+        //Log.d("aaa",  String.valueOf(Utility.readFromPreferencesInt(activity, "lang_is_setted")));
 
         header = navigationView.getHeaderView(0);
 
@@ -94,7 +94,7 @@ public class SideDrawer extends AppCompatActivity {
             String lang = Utility.readFromPreferencesString(activity, "lang");
 
             if (!lang.equals("en")) {
-                Log.d("aaa", lang);
+                //Log.d("aaa", lang);
                 Utility.setLocale(activity, lang);
             }
             Utility.writeOnPreferences(activity, "lang_is_setted", 1);
@@ -121,14 +121,14 @@ public class SideDrawer extends AppCompatActivity {
         if(getIntent().hasExtra("img")) {
             hasImage = getIntent().getStringExtra("img").equals("1");
             storeImage(hasImage);
-            Log.d("eee", "qui");
+            //Log.d("eee", "qui");
             Intent intent = getIntent();
             intent.removeExtra("img");
             finish();
             startActivity(intent);
         }
 
-        Log.d("aaa", "lol " +  "   " + username);
+        //Log.d("aaa", "lol " +  "   " + username);
 
         TextView in_game_username = header.findViewById(R.id.game_username);
         in_game_username.setText(Utility.readFromPreferencesString(activity, "username"));
@@ -176,7 +176,7 @@ public class SideDrawer extends AppCompatActivity {
         } else if (f instanceof QuizEndFragment) {
             ((QuizEndFragment)f).onBackPressed();
         } else if (f instanceof HomeFragment) {
-            Log.d("aaa","1");
+            //Log.d("aaa","1");
         } else if (f instanceof DifficultyFragment) {
             super.onBackPressed();
         } else {
@@ -188,7 +188,7 @@ public class SideDrawer extends AppCompatActivity {
     }
 
     private void storeImage(Boolean hasImage){
-        Log.d("ddd", "has image : " + hasImage.toString());
+        //Log.d("ddd", "has image : " + hasImage.toString());
         if (hasImage) {
             RequestQueue queue = Volley.newRequestQueue(getBaseContext());
             final String command = getString(R.string.server_address) + "/" + getString(R.string.get_image_server)
@@ -199,8 +199,8 @@ public class SideDrawer extends AppCompatActivity {
                         @Override
                         public void onResponse(String response) {
                             // Display the first 500 characters of the response string.
-                            Log.d("ddd", "command :" + command);
-                            Log.d("ddd", "writing :" + response);
+                            //Log.d("ddd", "command :" + command);
+                            //Log.d("ddd", "writing :" + response);
                             loadImageInGUI(response);
                             Utility.writeOnPreferences(activity, "image", response);
                             Utility.reloadActivity(activity);
@@ -209,7 +209,7 @@ public class SideDrawer extends AppCompatActivity {
                     }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Log.d("aaa", error.toString());
+                    //Log.d("aaa", error.toString());
                 }
 
             });
@@ -220,9 +220,9 @@ public class SideDrawer extends AppCompatActivity {
     }
 
     private void loadImageInGUI(String image_64){
-        Log.d("ddd", "temp lenght>10 : " + (image_64.length() > 10) + "\n" + image_64);
+        //Log.d("ddd", "temp lenght>10 : " + (image_64.length() > 10) + "\n" + image_64);
         if (image_64.length() > 10) {
-            Log.d("ddd", "writooo");
+            //Log.d("ddd", "writooo");
             ImageView userImage = header.findViewById(R.id.profile_img);
             byte[] decodedString = Base64.decode(image_64, Base64.DEFAULT);
             Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
@@ -234,7 +234,7 @@ public class SideDrawer extends AppCompatActivity {
     private void setupButtons(){
 
         if (! imageLoaded){
-            Log.d("ddd", "from here :)");
+            //Log.d("ddd", "from here :)");
             loadImageInGUI(Utility.readFromPreferencesString(activity, "image"));
        }
 
@@ -285,35 +285,35 @@ public class SideDrawer extends AppCompatActivity {
         Utility.writeOnPreferences(activity, "password", json.getString("password"));
 
         String temp = Utility.getScoreString(activity, getString(R.string.category_1), getString(R.string.difficulty_1));
-        Log.d("aab", " ** :" + temp);
+        //Log.d("aab", " ** :" + temp);
         Utility.writeOnPreferences(activity, temp, json.getInt("pts_" + temp));
 
         temp = Utility.getScoreString(activity, getString(R.string.category_1), getString(R.string.difficulty_2));
-        Log.d("aab", temp);
+        //Log.d("aab", temp);
         Utility.writeOnPreferences(activity, temp, json.getInt("pts_" + temp));
 
         temp = Utility.getScoreString(activity, getString(R.string.category_1), getString(R.string.difficulty_3));
-        Log.d("aab", temp);
+        //Log.d("aab", temp);
         Utility.writeOnPreferences(activity, temp, json.getInt("pts_" + temp));
 
         temp = Utility.getScoreString(activity, getString(R.string.category_2), getString(R.string.difficulty_1));
-        Log.d("aab", temp);
+        //Log.d("aab", temp);
         Utility.writeOnPreferences(activity, temp, json.getInt("pts_" + temp));
 
         temp = Utility.getScoreString(activity, getString(R.string.category_2), getString(R.string.difficulty_2));
-        Log.d("aab", temp);
+        //Log.d("aab", temp);
         Utility.writeOnPreferences(activity, temp, json.getInt("pts_" + temp));
 
         temp = Utility.getScoreString(activity, getString(R.string.category_2), getString(R.string.difficulty_3));
-        Log.d("aab", temp);
+        //Log.d("aab", temp);
         Utility.writeOnPreferences(activity, temp, json.getInt("pts_" + temp));
 
         temp = Utility.getScoreString(activity, getString(R.string.category_3), getString(R.string.difficulty_1));
-        Log.d("aab", temp);
+        //Log.d("aab", temp);
         Utility.writeOnPreferences(activity, temp, json.getInt("pts_" + temp));
 
         temp = Utility.getScoreString(activity, getString(R.string.category_3), getString(R.string.difficulty_2));
-        Log.d("aab", temp);
+        //Log.d("aab", temp);
         Utility.writeOnPreferences(activity, temp, json.getInt("pts_" + temp));
 
         temp = Utility.getScoreString(activity, getString(R.string.category_3), getString(R.string.difficulty_3));

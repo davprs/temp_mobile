@@ -65,7 +65,7 @@ public class QuestionFragment extends Fragment {
 
     public void onBackPressed() {
         FragmentManager fragmentManager = ((AppCompatActivity) activity).getSupportFragmentManager();
-        Log.d("aaa", String.valueOf(fragmentManager.getBackStackEntryCount()));
+        //Log.d("aaa", String.valueOf(fragmentManager.getBackStackEntryCount()));
         Utility.changeAppBarColor((AppCompatActivity)activity, Utility.MAIN_APPBAR_COLOR);
         fragmentManager.popBackStack(fragmentManager.
                         getBackStackEntryAt(fragmentManager.getBackStackEntryCount() - questionNumber - 1).
@@ -81,7 +81,7 @@ public class QuestionFragment extends Fragment {
         try {
             setupQuestionFragment(questionNumber);
         } catch (JSONException e) {
-            Log.d("aaa", "ERRORE JSON!!");
+            //Log.d("aaa", "ERRORE JSON!!");
         }
     }
 
@@ -172,7 +172,7 @@ public class QuestionFragment extends Fragment {
         List<Button> buttonList = new LinkedList(Arrays.asList(b1, b2, b3, b4));
         Integer style = 0;
 
-        Log.d("aaa", difficulty + " " + getString(R.string.difficulty_1));
+        //Log.d("aaa", difficulty + " " + getString(R.string.difficulty_1));
 
         if(difficulty.equals(getString(R.string.difficulty_1))){
             style = R.drawable.refined_answer_diff_1_button;

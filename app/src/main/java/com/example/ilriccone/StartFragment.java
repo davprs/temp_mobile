@@ -27,7 +27,7 @@ public class StartFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        Log.d("aaa", "ciaone");
+        //Log.d("aaa", "ciaone");
         View view =  inflater.inflate(R.layout.startup_fragment, container, false);
 
         //if there was a configuration change, i retrieve the image if it was taken
@@ -48,7 +48,7 @@ public class StartFragment extends Fragment {
             public void onClick(View view) {
                 Toast.makeText(getContext(), "bottone premuto", Toast.LENGTH_SHORT).show();
                 Intent loginIntent = new Intent(getContext(), SideDrawer.class);
-                Log.d("aaa", getContext().toString());
+                //Log.d("aaa", getContext().toString());
                 startActivity(loginIntent);
             }
         });

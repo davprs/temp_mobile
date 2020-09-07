@@ -67,7 +67,7 @@ public class SlideshowFragment extends Fragment {
         } else {
             cur_theme = "DEFAULT";
         }
-        Log.d("theme", Utility.readFromPreferencesString(activity, "theme"));
+        //Log.d("theme", Utility.readFromPreferencesString(activity, "theme"));
 
         language.setText(lang);
         theme.setText(cur_theme);

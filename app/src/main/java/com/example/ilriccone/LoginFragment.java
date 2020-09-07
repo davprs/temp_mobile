@@ -40,7 +40,6 @@ public class LoginFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.d("aaa", "mannaggia santa");
     }
 
     @Override
@@ -82,13 +81,13 @@ public class LoginFragment extends Fragment {
                         @Override
                         public void onResponse(JSONObject response) {
                             //textView.setText("Response is: "+ response);
-                            Log.d("aaa", response.toString());
+                            //Log.d("aaa", response.toString());
                         }
                     }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     textView.setText("That didn't work!");
-                    Log.d("aaa", error.toString());
+                    //Log.d("aaa", error.toString());
 
                 }
             });
@@ -156,14 +155,14 @@ public class LoginFragment extends Fragment {
 
                         } catch (JSONException e) {
                             Intent mainIntent = new Intent(getContext(), MainActivity.class);
-                            Log.d("ddd", "lol1  : " + response.toString());
+                            //Log.d("ddd", "lol1  : " + response.toString());
 
                             if(response.remove("user_image").toString().length()>10) {
-                                Log.d("ddd", "putting extra img = 1");
+                                //Log.d("ddd", "putting extra img = 1");
                                 mainIntent.putExtra("img", "1");
                             }
                             mainIntent.putExtra("json", response.toString());
-                            Log.d("ddd", "lol2  : " + response.toString());
+                            //Log.d("ddd", "lol2  : " + response.toString());
 
                             //Log.d("aaa", response.toString());
                             startActivity(mainIntent);
@@ -177,13 +176,13 @@ public class LoginFragment extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 //textView.setText("That didn't work!");
-                Log.d("aaa", error.toString());
+                //Log.d("aaa", error.toString());
                 TextView textView = getView().findViewById(R.id.login_text);
                 textView.setText("Response is: " + error.toString());
 
             }
         });
-        Log.d("aaa", "check2");
+        //Log.d("aaa", "check2");
 
         // Add the request to the RequestQueue.
         //jsonRequest.setTag(InternetUtilities.OSM_REQUEST_TAG);

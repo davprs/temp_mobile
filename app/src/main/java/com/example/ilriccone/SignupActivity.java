@@ -90,7 +90,7 @@ public class SignupActivity extends AppCompatActivity {
                             username_f.getText() + "&password=" + password_f1.getText());
 
                 } else {
-                    Log.d("aaa", "pre!_5");
+                    //Log.d("aaa", "pre!_5");
                     InternetUtilities.getSnackbar().show();
                 }
             }
@@ -99,15 +99,15 @@ public class SignupActivity extends AppCompatActivity {
         load_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("aaa", "pre!_1");
+                //Log.d("aaa", "pre!_1");
                 if (InternetUtilities.getIsNetworkConnected()) {
-                    Log.d("aaa", "pre!_2");
+                    //Log.d("aaa", "pre!_2");
                     if (ActivityCompat.checkSelfPermission(activity,
                             Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                        Log.d("aaa", "pre!_3");
+                        //Log.d("aaa", "pre!_3");
 
                     } else {
-                        Log.d("aaa", "pre!_4");
+                        //Log.d("aaa", "pre!_4");
                         startGallery();
                     }
                 }
@@ -167,9 +167,9 @@ public class SignupActivity extends AppCompatActivity {
 
 
     private void startGallery() {
-        Log.d("aaa", "pre!_TOT");
+        //Log.d("aaa", "pre!_TOT");
         dispatchTakePictureIntent();
-        Log.d("aaa", "pre!_TOT1/2");
+        //Log.d("aaa", "pre!_TOT1/2");
     }
 
     private boolean isSignupFormRight() {
@@ -201,7 +201,7 @@ public class SignupActivity extends AppCompatActivity {
                             Intent mainIntent = new Intent(activity, MainActivity.class);
                             mainIntent.putExtra("json", response.toString());
 
-                            Log.d("aaa", response.toString());
+                            //Log.d("aaa", response.toString());
                             startActivity(mainIntent);
                         }
 
@@ -211,13 +211,13 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 //textView.setText("That didn't work!");
-                Log.d("aaa", error.toString());
+                //Log.d("aaa", error.toString());
                 TextView textView = findViewById(R.id.login_text);
                 textView.setText("Response is: " + error.toString());
 
             }
         });
-        Log.d("aaa", "check2");
+        //Log.d("aaa", "check2");
 
         // Add the request to the RequestQueue.
         //jsonRequest.setTag(InternetUtilities.OSM_REQUEST_TAG);

@@ -61,7 +61,7 @@ public class LogoutFragment extends Fragment {
         try {
             // clearing app data
             if (Build.VERSION_CODES.KITKAT <= Build.VERSION.SDK_INT) {
-                Log.d("eee", "prev");
+                //Log.d("eee", "prev");
                 String packageName = getContext().getPackageName();
                 Runtime runtime = Runtime.getRuntime();
                 runtime.exec("pm clear "+packageName);
@@ -71,7 +71,7 @@ public class LogoutFragment extends Fragment {
                 startActivity(intent);
 
             } else {
-                Log.d("eee", "post");
+                //Log.d("eee", "post");
                 String packageName = activity.getApplicationContext().getPackageName();
                 Runtime runtime = Runtime.getRuntime();
                 runtime.exec("pm clear "+packageName);

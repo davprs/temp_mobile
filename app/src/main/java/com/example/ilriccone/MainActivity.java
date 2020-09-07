@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
             Intent loginIntent = new Intent(getBaseContext(), SideDrawer.class);
 
             if (mJsonObject != null){
-                Log.d("aaa","innn");
+                //Log.d("aaa","innn");
                 if(getIntent().hasExtra("img")) {
                     loginIntent.putExtra("img", getIntent().getStringExtra("img"));
                 }
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
 
             Intent loginIntent = new Intent(getBaseContext(), LoginActivity.class);
-            Log.d("aaa", getBaseContext().toString());
+            //Log.d("aaa", getBaseContext().toString());
             startActivity(loginIntent);
             finish();
 
@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.d("aaa", "pre!_TOTMAINACT");
+        //Log.d("aaa", "pre!_TOTMAINACT");
     }
 }
 

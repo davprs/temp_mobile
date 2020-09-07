@@ -135,7 +135,7 @@ public class QuizEndFragment extends Fragment {
         String url = getString(R.string.server_address) + "/updateScore.php?username=" +
                 Utility.readFromPreferencesString(activity, "username")
                 + "&category=" + command;
-        Log.d("aaa", url);
+        //Log.d("aaa", url);
 
         sendServerUpdate(url);
     }
@@ -151,7 +151,7 @@ public class QuizEndFragment extends Fragment {
                     @Override
                     public void onResponse(String response) {
                         // Display the first 500 characters of the response string.
-                        Log.d("aaa", "Server response : " + response);
+                        //Log.d("aaa", "Server response : " + response);
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -159,8 +159,8 @@ public class QuizEndFragment extends Fragment {
                 String temp = Utility.readFromPreferencesString(activity, "scores_update");
                 //temp = temp.equals("nulla") ? "" : temp;
                 Utility.writeOnPreferences(activity, "scores_update", temp + url + ",");
-                Log.d("aaa", temp + url + ",");
-                Log.d("aaa", "Server request : Something went wrong!");
+                //Log.d("aaa", temp + url + ",");
+                //Log.d("aaa", "Server request : Something went wrong!");
             }
 
         });

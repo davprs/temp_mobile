@@ -37,13 +37,13 @@ public class InternetUtilities {
             super.onAvailable(network);
             isNetworkConnected = true;
             final String temp = Utility.readFromPreferencesString(activ, "scores_update");
-            Log.d("aaa", "wth : " + temp);
+            //Log.d("aaa", "wth : " + temp);
             final String[] writable = {""};
             String[] updates = temp.replace("nulla", "").split(",");
 
             for (final String update : updates){
                 RequestQueue queue = Volley.newRequestQueue(activ.getBaseContext());
-                Log.d("aaa", "here : " + update);
+                //Log.d("aaa", "here : " + update);
 
 // Request a string response from the provided URL.
                 StringRequest stringRequest = new StringRequest(Request.Method.GET, update,
@@ -51,13 +51,13 @@ public class InternetUtilities {
                             @Override
                             public void onResponse(String response) {
                                 // Display the first 500 characters of the response string.
-                                Log.d("aaa", "Server response : " + response);
+                                //Log.d("aaa", "Server response : " + response);
                             }
                         }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         writable[0] += update + ",";
-                        Log.d("aaa", "Server request : Something went wrong!");
+                        //Log.d("aaa", "Server request : Something went wrong!");
                     }
 
                 });
@@ -68,7 +68,7 @@ public class InternetUtilities {
             //Log.d("aaa", "Lol1 ... " + writable[0]);
             //Utility.writeOnPreferences(activ, "scores_update", writable[0]);
 
-            Log.d("aaa", "Lol2 ... " + temp);
+            //Log.d("aaa", "Lol2 ... " + temp);
             snackbar.dismiss();
         }
 
@@ -81,7 +81,7 @@ public class InternetUtilities {
     };
 
     public static void registerNetworkCallback(Activity activity) {
-        Log.d("LAB","registerNetworkCallback");
+        //Log.d("LAB","registerNetworkCallback");
         activ = activity;
         ConnectivityManager connectivityManager =
                 (ConnectivityManager) activity.getSystemService(Context.CONNECTIVITY_SERVICE);

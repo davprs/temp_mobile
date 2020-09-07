@@ -58,7 +58,7 @@ public class DifficultyFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         activity = getActivity();
-        Log.d("aaa", category);
+        //Log.d("aaa", category);
         loading_layout = (ConstraintLayout)getView().findViewById(R.id.loading_constraint_layout);
         loading_layout.setVisibility(View.GONE);
         setupButtons();
@@ -138,7 +138,7 @@ public class DifficultyFragment extends Fragment {
 
         String url ="https://opentdb.com/api.php?amount=10&category=" + requestCategory
                 + "&difficulty=" + difficulty + "&type=multiple";
-        Log.d("aaa", "query: " + url);
+        //Log.d("aaa", "query: " + url);
 
         // Request a string response from the provided URL.
         JSONObject jo = null;
@@ -157,13 +157,13 @@ public class DifficultyFragment extends Fragment {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        Log.d("aaa", response.toString());
+                        //Log.d("aaa", response.toString());
 
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("aaa", error.toString());
+                //Log.d("aaa", error.toString());
 
             }
         });
@@ -177,7 +177,7 @@ public class DifficultyFragment extends Fragment {
 
         questions.length();
 
-        Log.d("aaa", "len:" + String.valueOf(questions.length()));
+        //Log.d("aaa", "len:" + String.valueOf(questions.length()));
 
         for (int i = 0; i < questions.length(); i++){
             Utility.writeOnPreferences(activity, "question_" + String.valueOf(i + 1), questions.get(i).toString());
